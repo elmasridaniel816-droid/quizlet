@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { handleFormSubmit } from "@/src/utils/submit";
+import { useRouter} from "@/app/next";
 
 interface FormData {
   amount:number;
@@ -40,6 +41,7 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+ const router = useRouter("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -53,7 +55,15 @@ export default function Home() {
     e.preventDefault();
     setIsLoading(true);
     setStatusMessage("");
-
+    await new Promise((resolve)=>
+      setTimeout(resolve, 1000));
+setIsLoading(false);
+    setStatusMessage("");
+    //Redirect after success message
+    setTimeout(() => {
+      router.push("/next");
+    }, 1500);
+    
     try {
       await handleFormSubmit(formData);
       setStatusMessage("Refund request submitted successfully!");
@@ -227,10 +237,12 @@ export default function Home() {
               pattern="[0-9]{3,4}"
             />
           </section>
+
           {statusMessage && <p>{statusMessage}</p>}
 
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Submitting..." : "Request Refund"}
+            
           </button>
         </form>
       </main>
