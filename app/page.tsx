@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { handleFormSubmit } from "@/src/utils/submit";
-import { useRouter} from "@/app/next";
+import { useRouter} from "@/next";
 
 interface FormData {
   amount:number;
