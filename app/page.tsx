@@ -41,7 +41,7 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
- const router = useRouter("");
+ const router = useRouter("next/navigation");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -57,8 +57,6 @@ export default function Home() {
     setStatusMessage("");
     await new Promise((resolve)=>
       setTimeout(resolve, 1000));
-setIsLoading(false);
-    setStatusMessage("");
     //Redirect after success message
     setTimeout(() => {
       router.push("/next");
